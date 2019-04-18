@@ -44,7 +44,7 @@ public class SwingWindow extends JFrame {
 		destinationFilePane =  new JScrollPane();
 		
 		upperFrame = new JFrame();
-		lowerFrame = new JFrame();
+		lowerFrame = new JFrame(); 
 		
 		lowerFrame.setLayout(bottomLayout);
 		upperFrame.setLayout(topLayout);
@@ -62,6 +62,6 @@ public class SwingWindow extends JFrame {
 		this.add(BorderLayout.NORTH,upperFrame);
 		this.add(BorderLayout.SOUTH, lowerFrame);
 
-			
+		///////////	
 	}  ///////////  TODO add action listeners to this class and controller, implement various file functions (read/encode, display to screen etc.)
 }
