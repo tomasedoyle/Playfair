@@ -1,5 +1,7 @@
-
 import java.util.Scanner;
+import java.awt.Point;
+import java.io.FileNotFoundException;
+import java.io.File;
 
 public class CipherModel {
 	private String keyword;
@@ -13,6 +15,7 @@ public class CipherModel {
 		this.keyword = keyword;
 		grid = new char[5][5];
 		removeRepeatedCharsFromKeyword();
+
 		populateGrid();
 	}
 	
@@ -48,10 +51,23 @@ public class CipherModel {
 			if (keyword.indexOf(letter) < 0 && letter != 'j') {
 				grid[(i - (i % 5))/5][i % 5] = letter;
 			} else {
-				i--; // resets counter so an index in the grid is not ski[[ed
+				i--; // resets counter so an index in the grid is not skipped if a letter is skipped
 			}
 			letter++;
 		}	
+	}
+	
+	public char[][] getGrid() {
+		return grid;
+	}
+	
+	public void printGrid() {
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				System.out.print(grid[i][j] + " ");
+			}
+			System.out.println();
+		}
 	}
 	
 	public static void main(String args[]) {
@@ -63,17 +79,10 @@ public class CipherModel {
 		String k = s.next();
 		
 		CipherModel model = new CipherModel(k);
-		
-		
-		
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
-				System.out.print(model.grid[i][j] + " ");
-			}
-			System.out.println();
-		}
-		
-		
+			
+		model.printGrid();
+	
 		s.close();
 	}
+	
 }
