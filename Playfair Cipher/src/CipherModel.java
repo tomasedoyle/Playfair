@@ -47,16 +47,17 @@ public class CipherModel {
 			grid[(i - (i % 5))/5][i % 5] = keyword.charAt(i); 
 		}
 		
-		for (; i < 25; i++) {  // populates the rest of the grid alphabetically excluding letters in the keyword and j
-			                   // to account for a 5X5 grid vs 26 letter alphabet
-			
-			if (keyword.indexOf(letter) < 0 && letter != 'j') {
+		for (; i < 25; i++) {  // populates the rest of the grid alphabetically excluding letters in the keyword and j	                   
+			if (keyword.indexOf(letter) < 0 && letter != 'j') { // to account for a 5X5 grid vs 26 letter alphabet
 				grid[(i - (i % 5))/5][i % 5] = letter;
+				System.out.printf("letter: %c added\n", letter);
 			} else {
 				i--; // resets counter so an index in the grid is not skipped if a letter is skipped
 			}
 			letter++;
-		}	
+		}
+		
+		printEncodingGrid();
 	}
 	
 	public char[][] getGrid() {
@@ -104,6 +105,8 @@ public class CipherModel {
 		Point a = getPointOfCharacterString(characters.charAt(0)); // gets location of each pair of chars in the model's character grid
 		Point b = getPointOfCharacterString(characters.charAt(1));
 
+		printEncodingGrid();
+		
 		int x1 = (int) a.getX();
 		int x2 = (int) b.getX();
 		int y1 = (int) a.getY();
@@ -161,6 +164,15 @@ public class CipherModel {
 		return null;
 	}
 	
+	public void printEncodingGrid() {
+		for (int i = 0; i < 5; i++) {
+			for( int j = 0; j < 5; j++ ) {				
+					System.out.print(String.valueOf(grid[i][j]));
+			}
+			System.out.println();
+		}
+	}
+	
 	public String getDestinationFileText() {
 		return destinationText;
 	}
@@ -179,6 +191,5 @@ public class CipherModel {
 
 	public void setKeyword(String keyword2) {
 		keyword = keyword2;
-		
 	}
 }

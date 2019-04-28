@@ -102,29 +102,24 @@ public class CipherController {
 	///// Listener's and GUI controllers
 	///// 
 	
-	class EncodeListener implements ActionListener {
+	class EncodeListener implements ActionListener { // Runs after encode button is pressed
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			
-			System.out.println("Reached Creditable Point");
-			
-			model.setKeyword(window.getKeywordText());
+						
+			model.setKeywordAndGrid(window.getKeywordText());
 			model.setEncoding(true);
 			model.setOriginFileText(window.getTextAreaText());
 			model.translateString();
 			window.setTextAreaText(model.getDestinationFileText());
-			
-			System.out.println("Output text " + model.getDestinationFileText());
-
 			writeTextToFile();
 		}
 	}
 
-	class DecodeListener implements ActionListener {
+	class DecodeListener implements ActionListener { // Runs after decode button is pressed
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			model.setKeyword(window.getKeywordText());
+			model.setKeywordAndGrid(window.getKeywordText());
 			model.setEncoding(false);
 			model.setOriginFileText(window.getTextAreaText());
 			model.translateString();
@@ -133,7 +128,7 @@ public class CipherController {
 		}	
 	}
 	
-	class EditableItemListener implements ActionListener {
+	class EditableItemListener implements ActionListener { //  Toggles whether text field is editable (checkbox in menu bar)
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			if (((JCheckBoxMenuItem)arg0.getSource()).isSelected()) {
@@ -144,7 +139,7 @@ public class CipherController {
 		}	
 	}
 	
-	class MenuListener implements ActionListener {
+	class MenuListener implements ActionListener {   ///////// performs file operations from menu bar
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
@@ -175,7 +170,7 @@ public class CipherController {
 				}
 				break;
 			case "Encode Text":
-				model.setKeyword(window.getKeywordText());
+				model.setKeywordAndGrid(window.getKeywordText());
 				model.setEncoding(true);
 				model.setOriginFileText(window.getTextAreaText());
 				model.translateString();
@@ -183,7 +178,7 @@ public class CipherController {
 				writeTextToFile();
 				break;
 			case "Decode Text":
-				model.setKeyword(window.getKeywordText());
+				model.setKeywordAndGrid(window.getKeywordText());
 				model.setEncoding(false);
 				model.setOriginFileText(window.getTextAreaText());
 				model.translateString();
@@ -192,7 +187,7 @@ public class CipherController {
 				break;
 			case "Set Keyword":
 				String keyword = JOptionPane.showInputDialog(null, "Enter a keyword: ");
-				model.setKeyword(keyword);
+				model.setKeywordAndGrid(window.getKeywordText());
 				window.setKeywordText(keyword);	
 				break;
 			}			
