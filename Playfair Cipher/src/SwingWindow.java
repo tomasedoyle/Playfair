@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JPanel;
@@ -207,6 +208,9 @@ public class SwingWindow extends JFrame {
 	}
 	
 	public String getKeywordText() {
+		while (keywordField.getText().equals("")) {
+			keywordField.setText(JOptionPane.showInputDialog(null, "Enter a keyword: "));
+		}
 		return keywordField.getText();
 	}
 

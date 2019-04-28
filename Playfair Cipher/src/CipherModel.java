@@ -50,33 +50,26 @@ public class CipherModel {
 		for (; i < 25; i++) {  // populates the rest of the grid alphabetically excluding letters in the keyword and j	                   
 			if (keyword.indexOf(letter) < 0 && letter != 'j') { // to account for a 5X5 grid vs 26 letter alphabet
 				grid[(i - (i % 5))/5][i % 5] = letter;
-				System.out.printf("letter: %c added\n", letter);
 			} else {
 				i--; // resets counter so an index in the grid is not skipped if a letter is skipped
 			}
 			letter++;
 		}
-		
-		printEncodingGrid();
 	}
 	
 	public char[][] getGrid() {
 		return grid;
 	}
 	
-	public void printGrid() {
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
-				System.out.print(grid[i][j] + " ");
-			}
-			System.out.println();
-		}
-	}
-	
+
 	public void translateString () {		
 		
 		sourceText = sourceText.replaceAll(" ", ""); ///////// preparing string for encoding
-		// replace all doesn't work with periods?
+		sourceText = sourceText.replaceAll("/,", ""); ///////// preparing string for encoding
+		sourceText = sourceText.replaceAll("/.", ""); ///////// preparing string for encoding
+		sourceText = sourceText.replaceAll("/-", ""); ///////// preparing string for encoding
+		sourceText = sourceText.replaceAll("j", "i"); ///////// preparing string for encoding
+
 		
 
 		if (sourceText.length() % 2 == 1) {
@@ -94,18 +87,14 @@ public class CipherModel {
 			for (int i = 0; i < length; i += 2) {
 				out = out + decode(sourceText.substring(i, i + 2));
 			}
-		}
+		}		
 		
-		System.out.println ("Output real: " + out);
-		
-		destinationText = out;
+     	destinationText = out;
 	}
 
 	public String encode(String characters) {
 		Point a = getPointOfCharacterString(characters.charAt(0)); // gets location of each pair of chars in the model's character grid
 		Point b = getPointOfCharacterString(characters.charAt(1));
-
-		printEncodingGrid();
 		
 		int x1 = (int) a.getX();
 		int x2 = (int) b.getX();
@@ -129,8 +118,8 @@ public class CipherModel {
 	}
 
 	public String decode(String characters) {
-		Point a = getPointOfCharacterString(characters.substring(0,1).charAt(0)); // gets location of each pair of chars in the model.getGrid()
-		Point b = getPointOfCharacterString(characters.substring(1,2).charAt(0));
+		Point a = getPointOfCharacterString(characters.charAt(0)); // gets location of each pair of chars in the model's character grid
+		Point b = getPointOfCharacterString(characters.charAt(1));
 
 		int x1 = (int) a.getX();
 		int x2 = (int) b.getX();
@@ -138,18 +127,17 @@ public class CipherModel {
 		int y2 = (int) b.getY();
 
 		if (a.getX() == b.getX()) {   //////////////// shifts/encodes characters according to the rules of the cipher
-			y1 = (y1 - 1) % 5;
-			y2 = (y2 - 1) % 5;
-		}
+			y1 = (y1 == 0) ? y1 = 4 : (y1 - 1);
+			y2 = (y2 == 0) ? y2 = 4 : (y2 - 1);	
+			}
 		else if (a.getY() == b.getY()) {
-			x1 = (x1 - 1) % 5;
-			x2 = (x2 - 1) % 5;
+			x1 = (x1 == 0) ? x1 = 4 : (x1 - 1);		
+			x2 = (x2 == 0) ? x2 = 4 : (x2 - 1);
 		} else {
 			int swap = x1;
 			x1 = x2;
 			x2 = swap;
 		}
-
 		return new String(String.valueOf(grid[x1][y1]) + String.valueOf(grid[x2][y2]));
 	}
 

@@ -52,7 +52,6 @@ public class CipherController {
 			}
 
 			scanner.close();
-			System.out.println(line);
 			return line;
 
 		} catch (Exception e) {
@@ -65,8 +64,7 @@ public class CipherController {
 		
 		if (selectedInputFile == null ||selectedInputFile.equals("")) {
 			selectedInputFile = JOptionPane.showInputDialog(null, "Enter your filename (excluding .txt): ");
-		}
-		
+		}	
 		try 
 		{
 			PrintWriter outFile = new PrintWriter(window.getOutputFileText() + ".txt");
@@ -80,9 +78,7 @@ public class CipherController {
 	
 	public void writeTextToFile () { // attempts to write to the file stored in the class - or asks user for a filename
 		
-		if (window.getOutputFileText() == null || window.getOutputFileText().equals("")) {
-			window.setOutputFileText(JOptionPane.showInputDialog(null, "Enter your filename (excluding .txt): "));
-		}
+		if (!(window.getOutputFileText() == null || window.getOutputFileText().equals(""))) { // only writes to file if a filename is entered
 		
 		try 
 		{
@@ -92,6 +88,8 @@ public class CipherController {
 		} 
 		catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Sorry the file could not be opened");
+		}
+		
 		}
 	}
 	
@@ -108,8 +106,8 @@ public class CipherController {
 		public void actionPerformed(ActionEvent arg0) {
 						
 			model.setKeywordAndGrid(window.getKeywordText());
-			model.setEncoding(true);
 			model.setOriginFileText(window.getTextAreaText());
+			model.setEncoding(true);
 			model.translateString();
 			window.setTextAreaText(model.getDestinationFileText());
 			writeTextToFile();
@@ -120,8 +118,8 @@ public class CipherController {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			model.setKeywordAndGrid(window.getKeywordText());
-			model.setEncoding(false);
 			model.setOriginFileText(window.getTextAreaText());
+			model.setEncoding(false);
 			model.translateString();
 			window.setTextAreaText(model.getDestinationFileText());
 			writeTextToFile();
@@ -171,16 +169,16 @@ public class CipherController {
 				break;
 			case "Encode Text":
 				model.setKeywordAndGrid(window.getKeywordText());
-				model.setEncoding(true);
 				model.setOriginFileText(window.getTextAreaText());
+				model.setEncoding(true);
 				model.translateString();
 				window.setTextAreaText(model.getDestinationFileText());
 				writeTextToFile();
 				break;
 			case "Decode Text":
 				model.setKeywordAndGrid(window.getKeywordText());
-				model.setEncoding(false);
 				model.setOriginFileText(window.getTextAreaText());
+				model.setEncoding(false);
 				model.translateString();
 				window.setTextAreaText(model.getDestinationFileText());
 				writeTextToFile();
