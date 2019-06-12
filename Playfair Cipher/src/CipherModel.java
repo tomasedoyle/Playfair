@@ -64,13 +64,13 @@ public class CipherModel {
 
 	public void translateString () {		
 		
-		sourceText = sourceText.replaceAll(" ", ""); ///////// preparing string for encoding
-		sourceText = sourceText.replaceAll("/,", ""); ///////// preparing string for encoding
-		sourceText = sourceText.replaceAll("/.", ""); ///////// preparing string for encoding
-		sourceText = sourceText.replaceAll("/-", ""); ///////// preparing string for encoding
+		//sourceText = sourceText.replaceAll(" ", ""); ///////// preparing string for encoding
+		//sourceText = sourceText.replaceAll("//,$", ""); ///////// preparing string for encoding
+		//sourceText = sourceText.replaceAll("/.", ""); ///////// preparing string for encoding
+		//sourceText = sourceText.replaceAll("/-", ""); ///////// preparing string for encoding
 		sourceText = sourceText.replaceAll("j", "i"); ///////// preparing string for encoding
 
-		
+		System.out.println("This is the source text: " + sourceText);
 
 		if (sourceText.length() % 2 == 1) {
 			sourceText = sourceText + "x";
